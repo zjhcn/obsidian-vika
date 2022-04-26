@@ -1,6 +1,10 @@
 import esbuild from "esbuild";
 import process from "process";
 import builtins from 'builtin-modules'
+import pluginVue from 'esbuild-plugin-vue-next'
+
+import sassPlugin from './packages/esbuild-plugin-sass/index.js';
+
 
 const banner =
 	`/*
@@ -15,7 +19,15 @@ esbuild.build({
 	banner: {
 		js: banner,
 	},
+	plugins: [
+		pluginVue(),
+		// @ts-ignore
+		sassPlugin({
+			outName: "styles"
+		})
+	],
 	entryPoints: ['src/main.ts'],
+	chunkNames: "[name]",
 	bundle: true,
 	external: [
 		'obsidian',

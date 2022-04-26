@@ -19,7 +19,7 @@
 		"editor.defaultFormatter": "vscode.typescript-language-features"
 	},
 	"[vue]": {
-		"editor.defaultFormatter": "octref.vetur"
+		"editor.defaultFormatter": "johnsoncodehk.volar"
 	},
 	"[javascript]": {
 		"editor.defaultFormatter": "vscode.typescript-language-features"
@@ -52,14 +52,15 @@
 		"Biao",
 		"CDSC",
 		"datas",
+		"datasheets",
 		"docgen",
 		"Pingying",
 		"qiming",
 		"scripthost",
 		"sortablejs",
 		"userid",
-		"zhao",
-		"Vika"
+		"Vika",
+		"zhao"
 	],
 	"editor.formatOnSave": true,
 	"emmet.includeLanguages": {
