@@ -130,7 +130,7 @@ module.exports = (options = {}) => ({
             const outMainPath = path.resolve(rootDir, outfile !== null && outfile !== void 0 ? outfile : "");
             const outMainDir = path.dirname(outMainPath);
             const outMainBaseName = path.basename(outMainPath, ".js");
-            fs.renameSync(`${outMainDir}\\${outMainBaseName}.css`, `${outMainDir}\\${outName}.css`);
+            fs.renameSync(`${outMainDir}/${outMainBaseName}.css`, `${outMainDir}/${outName}.css`);
         });
     },
 });
