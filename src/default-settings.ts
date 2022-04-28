@@ -1,4 +1,4 @@
-import { VikaSettings } from "./Vika.type";
+import { TapMap, VikaSettings } from "./Vika.type";
 
 export const DEFAULT_SETTINGS: VikaSettings = {
   sheetId: "",
@@ -20,9 +20,33 @@ export const DEFAULT_SETTINGS: VikaSettings = {
   showVikaLinkInFrontMatter: false,
   // 同步提醒的显示方式，0 表示在console中显示，1 表示用Obsidian的提醒，2 表示用系统提醒
   noticeType: "1",
+
+  vikaMap: [
+    {
+      ob: "",
+      obPlaceholder: "默认使用文件名",
+      vika: "Title",
+      vikaLabel: "标题列 (默认Title)",
+    },
+    {
+      ob: "",
+      obPlaceholder: "笔记文件名",
+      obDisabled: true,
+      vika: "FileName",
+      vikaPlaceholder: "不填则不上传",
+    },
+    {
+      ob: "",
+      obPlaceholder: "笔记文件名",
+      obDisabled: true,
+      vika: "OBURI",
+      vikaPlaceholder: "不填则不上传",
+      desc: "用于在Vika打开Obsidian笔记",
+    },
+  ].map((item: TapMap) => {
+    item.default = true;
+    return item;
+  }),
   // 二级标签同步到Vika的列。 ob: 父标签; vika: Vika Field
-  subTagMap: [
-    // { ob: "projects", vika: "Project" },
-    // { ob: "evergreen", vika: "Evergreen" },
-  ],
+  subTagMap: [],
 };

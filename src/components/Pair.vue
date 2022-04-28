@@ -3,11 +3,11 @@
         <div class="vika-pair--field">
             <label>
                 {{ labelLabel }}
-                <input type="text" v-model="label" @change.stop />
+                <input type="text" v-model="label" @change.stop="onChange" />
             </label>
             <label class="vika-pair--field--value-label">
                 {{ valueLabel }}
-                <input type="text" v-model="value" @change.stop />
+                <input type="text" v-model="value" @change.stop="onChange" />
             </label>
         </div>
         <div class="vika-pair-suffix">
@@ -25,6 +25,8 @@ export interface Props {
 
 export default defineComponent({
     name: "pair",
+
+    emits: ["change", "update:label", "update:value"],
 
     props: {
         label: {
@@ -49,9 +51,14 @@ export default defineComponent({
         const label = useVModel(props, 'label', emit);
         const value = useVModel(props, 'value', emit);
 
+        function onChange() {
+            emit('change', [label.value, value.value]);
+        }
+
         return {
             label,
-            value
+            value,
+            onChange
         };
     } // end setup
 }); // end defineComponent

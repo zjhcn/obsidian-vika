@@ -446,11 +446,20 @@ export class SettingsManager {
 
   uiMapSettings(containerEl: HTMLElement) {
     containerEl.createEl("h3", { text: "映射关系" });
+    const key = "vikaMap";
     const div = containerEl.createEl("div");
+    const list = this.getSetting(key);
 
     const app = createApp(PairList, {
-      onChange: (pair: any) => {
-        console.log("pair", pair);
+      //   list: _.isEmpty(list) ? this.getDefaultSetting(key) : list,
+      list: this.getDefaultSetting(key),
+      onChange: (value: any) => {
+        console.log("pair", value);
+        this.applySettingsUpdate({
+          [key]: {
+            $set: value as any,
+          },
+        });
       },
     });
 

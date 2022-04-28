@@ -1,8 +1,16 @@
 import { Plugin } from "obsidian";
 
 export interface TapMap {
+  desc?: string;
+  default?: boolean;
   ob: string;
+  obLabel?: string;
+  obPlaceholder?: string;
+  obDisabled?: boolean;
   vika: string;
+  vikaLabel?: string;
+  vikaPlaceholder?: string;
+  vikaDisabled?: boolean;
 }
 
 export interface VikaSettings {
@@ -10,6 +18,8 @@ export interface VikaSettings {
   viewId: string;
   apiKey: string;
 
+  /** Obsidian 数据 和 Vika的列映射 */
+  vikaMap: TapMap[];
   /** 需要批量同步的目录 */
   mutilUploadPaths: string[];
   // 是否在Frontmatter区下方添加一个Vika访问链接
