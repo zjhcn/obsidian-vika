@@ -10,14 +10,26 @@
             </Pair>
         </div>
         <div class="setting-item vika-pair-list--ctrls">
-            <button @click="onAdd">增加一条</button>
+            <ElButton @click="onAdd">增加一条</ElButton>
         </div>
+
+        <Autocomplete v-model="state1" :fetch-suggestions="querySearch" clearable class="inline-input w-50"
+            placeholder="Please Input" @select="handleSelect" />
+        <Multiselect v-model="value" :options="options" />
     </div>
 </template>
 
 <script lang="ts">
+import 'element-plus/dist/index.css';
+// import "element-plus/es/components/autocomplete/style/css";
+// import "element-plus/es/components/autocomplete/style/index";
+import Autocomplete from "element-plus/es/components/autocomplete/index";
+import { ElButton } from "element-plus";
+// Optional: Import default CSS
+import "@vueform/multiselect/themes/default.css";
+import Multiselect from '@vueform/multiselect';
 import { TapMap } from "src/Vika.type";
-import { computed, defineComponent, PropType, ref, unref } from "vue";
+import { computed, defineComponent, onMounted, PropType, ref, unref } from "vue";
 import Pair from "./Pair.vue";
 import microdiff from "microdiff";
 import { MaybeRef } from "@vueuse/core";
@@ -33,7 +45,10 @@ export default defineComponent({
     name: "pair-list",
 
     components: {
-        Pair
+        Pair,
+        Multiselect,
+        Autocomplete,
+        ElButton
     }, // end components
 
     props: {
@@ -66,11 +81,64 @@ export default defineComponent({
             emit("change", filterPairs.value);
         }
 
+        const options = [
+            'foo',
+            'bar',
+            'baz'
+        ];
+
+        const state1 = ref('');
+        const state2 = ref('');
+
+        const restaurants = ref<RestaurantItem[]>([]);
+        const querySearch = (queryString: string, cb: any) => {
+            const results = queryString
+                ? restaurants.value.filter(createFilter(queryString))
+                : restaurants.value;
+            // call callback function to return suggestions
+            cb(results);
+        };
+        const createFilter = (queryString: string) => {
+            return (restaurant: RestaurantItem) => {
+                return (
+                    restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0
+                );
+            };
+        };
+        const loadAll = () => {
+            return [
+                { value: 'vue', link: 'https://github.com/vuejs/vue' },
+                { value: 'element', link: 'https://github.com/ElemeFE/element' },
+                { value: 'cooking', link: 'https://github.com/ElemeFE/cooking' },
+                { value: 'mint-ui', link: 'https://github.com/ElemeFE/mint-ui' },
+                { value: 'vuex', link: 'https://github.com/vuejs/vuex' },
+                { value: 'vue-router', link: 'https://github.com/vuejs/vue-router' },
+                { value: 'babel', link: 'https://github.com/babel/babel' },
+            ];
+        };
+
+        const handleSelect = (item: RestaurantItem) => {
+            console.log(item);
+        };
+
+        onMounted(() => {
+            restaurants.value = loadAll();
+        });
+
+
         return {
+            state1,
+            querySearch,
+            handleSelect,
+            value: ref(""),
+            options,
+            getItems() {
+                console.log(arguments);
+            },
             pairs,
             onAdd,
             onRemove,
-            onChange
+            onChange,
         };
     } // end setup
 }); // end defineComponent
