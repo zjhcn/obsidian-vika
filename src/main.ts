@@ -8,6 +8,7 @@ import { DEFAULT_SETTINGS } from "./default-settings";
 import { exampleStatusBar } from "./status-bar/example";
 import { VikaSettings, IVika } from "./Vika.type";
 
+
 export default class Vika extends Plugin implements IVika {
   settingsTab!: VikaSettingsTab;
   settings!: VikaSettings;
